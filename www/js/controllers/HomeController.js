@@ -1,35 +1,35 @@
-(function(){
-	angular.module('starter')
-	.controller('HomeController', ['$scope', '$state', 'localStorageService', 'SocketService', HomeController]);
-	
-	function HomeController($scope, $state, localStorageService, SocketService){
+(function() {
+  angular.module('starter')
+    .controller('HomeController', ['$scope', '$state', 'localStorageService', 'SocketService', HomeController]);
 
-		var me = this;
+  function HomeController($scope, $state, localStorageService, SocketService) {
 
-		me.current_room = localStorageService.get('room');
-		me.rooms = ['Coding', 'Art', 'Writing', 'Travel', 'Business', 'Photography'];
-		
+    var me = this;
 
-		$scope.login = function(username){
-			localStorageService.set('username', username);
-			$state.go('rooms');
-		};
+    me.current_room = localStorageService.get('room');
+    me.rooms = ["Pikachu", "Pacman", "Mortal Kombat", "Kirby", "Banana Room", "Mega Man", "Bowser", "Sonic"];
 
 
-		$scope.enterRoom = function(room_name){
+    $scope.login = function(username) {
+      localStorageService.set('username', username);
+      $state.go('rooms');
+    };
 
-			me.current_room = room_name;
-			localStorageService.set('room', room_name);
-			
-			var room = {
-				'room_name': room_name
-			};
 
-			SocketService.emit('join:room', room);
+    $scope.enterRoom = function(room_name) {
 
-			$state.go('room');
-		};
+      me.current_room = room_name;
+      localStorageService.set('room', room_name);
 
-	}
+      var room = {
+        'room_name': room_name
+      };
+
+      SocketService.emit('join:room', room);
+
+      $state.go('room');
+    };
+
+  }
 
 })();
