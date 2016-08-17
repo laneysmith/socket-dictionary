@@ -9,6 +9,7 @@
     me.messages = [];
     me.definitions = [];
 
+	$scope.selected = true;
     $scope.humanize = function(timestamp) {
       return moment(timestamp).fromNow();
     };
@@ -26,6 +27,7 @@
     };
     $scope.selectWord = function() {
       SocketService.emit('select_word', $scope.data, me.current_room);
+	  $scope.selected = false;
     };
 
     $scope.getWord = function() {
@@ -82,7 +84,11 @@
     localStorageService.set('player_data.currentRole', "player");
 
     SocketService.on('selected_word', function(data) {
-      me.definitions.push(data)
+      var def = {
+        definition: data.meaning,
+        word: data.word
+      }
+      me.definitions.push(def)
       $scope.toggleInput = true;
       $scope.word = data.word;
     })
@@ -105,6 +111,7 @@
 
     SocketService.on('definition', function(def) {
       me.definitions.push(def);
+      console.log(me.definitions.length);
     });
 
   }

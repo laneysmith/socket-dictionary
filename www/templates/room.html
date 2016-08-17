@@ -6,7 +6,7 @@
 
   <ion-content class="has-header padding">
 
-    <div class="card" ng-show="currentRole=='picker'">
+    <div class="card" ng-show="currentRole=='picker' && selected == true">
       <div class="item item-divider">
         {{data.word}}
       </div>
@@ -18,8 +18,7 @@
         <a class="button button-balanced" ng-click="selectWord()">Select</a>
       </div>
     </div>
-    <div ng-show="word">
-    </div>
+    <div ng-show="word"></div>
     <div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
     <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
       <div class="msg">
@@ -34,21 +33,28 @@
     </li>
   </div>
 
-  <div class="card" ng-if="!room_ctrl.messages.length">
+  <div ng-show="selected" class="card" ng-if="!room_ctrl.messages.length">
     <div class="item item-text-wrap">
       Waiting for players...
     </div>
   </div>
 
-<ion-list>
-    <ion-radio ng-repeat="definition in definitions" ng-model="choice" ng-value="">{{definition.definition}}</ion-radio>
-</ion-list>
+  <div class="list" ng-show="room_ctrl.definitions.length === 4">
+    <p class="title item item-text-wrap">I think {{word}} means:</p>
+    <ion-list>
+      <ion-radio ng-repeat="definition in room_ctrl.definitions" ng-model="choice" ng-value="">{{definition.definition}}</ion-radio>
+    </ion-list>
+    <a class="button button-block button-positive" ng-click="playerChoice()">Submit</a>
+  </div>
 
-  <div ng-show="toggleInput" class="list">
+  <div ng-if="toggleInput == true && currentRole !=='picker'" class="list">
     <p class="item item-text-wrap">Your turn to make up a definition! Remember to make it sound convincing, you get points if other players think yours is the real definition.</p>
-    <p class="item"> The Word is: <strong>{{word}}</strong></p>
+    <p class="item">
+      The Word is:
+      <strong>{{word}}</strong>
+    </p>
     <label class="item item-input">
-    <textarea id="definition" rows=10 name="message" ng-model="room_ctrl.definition" placeholder="Type your definition here"></textarea>
+      <textarea id="definition" rows=10 name="message" ng-model="room_ctrl.definition" placeholder="Type your definition here"></textarea>
     </label>
     <a class="button button-block button-positive" ng-click="sendDefinition()">Submit Definition</a>
   </div>
