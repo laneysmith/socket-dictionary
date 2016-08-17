@@ -3,10 +3,13 @@
     .controller('RoomController', ['$scope', '$state', 'localStorageService', 'SocketService', 'moment', '$ionicScrollDelegate', 'WordService', RoomController]);
 
   function RoomController($scope, $state, localStorageService, SocketService, moment, $ionicScrollDelegate, WordService) {
-	 
+
     var me = this;
 
     me.messages = [];
+    me.definitions = [];
+    console.log(definitions.length);
+
 
     $scope.humanize = function(timestamp) {
       return moment(timestamp).fromNow();
@@ -33,24 +36,36 @@
       })
     }
 
-    $scope.sendTextMessage = function() {
+    // $scope.sendTextMessage = function() {
+    //
+    //   var msg = {
+    //     'room': me.current_room,
+    //     'user': current_user,
+    //     'text': me.message,
+    //     'time': moment()
+    //   };
+    //
+    //   me.messages.push(msg);
+    //   $ionicScrollDelegate.scrollBottom();
+    //
+    //   me.message = '';
+    //
+    //   SocketService.emit('send:message', msg);
+    // };
+
+    $scope.sendDefinition = function () {
       $scope.toggleInput = false;
-      var msg = {
+
+      var def = {
         'room': me.current_room,
         'user': current_user,
-        'text': me.message,
-        'time': moment()
+        'definition': me.definition
       };
 
+      SocketService.emit('send:definition', def);
 
-      me.messages.push(msg);
-      $ionicScrollDelegate.scrollBottom();
 
-      me.message = '';
-
-      SocketService.emit('send:message', msg);
-    };
-
+    }
 
     $scope.leaveRoom = function() {
 
@@ -87,6 +102,10 @@
     SocketService.on('message', function(msg) {
       me.messages.push(msg);
       $ionicScrollDelegate.scrollBottom();
+    });
+
+    SocketService.on('definition', function(def) {
+      me.definition.push(def);
     });
 
 
