@@ -24,8 +24,7 @@
       return 'current-user';
     };
     $scope.selectWord = function() {
-		$scope.select = $scope.data.word;
-    //   WordService.selectWord($scope.data);
+      SocketService.emit('select_word', $scope.data.word, me.current_room);
     };
 
     $scope.getWord = function() {
@@ -68,6 +67,10 @@
 
     localStorageService.set('player_data.score', 0);
     localStorageService.set('player_data.currentRole', "player");
+
+	SocketService.on('selected_word', function(word) {
+		$scope.word = word;
+	})
 
     SocketService.on('start_game', function(msg) {
       WordService.getWord().then(function(data) {
