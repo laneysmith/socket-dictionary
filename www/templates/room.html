@@ -19,7 +19,6 @@
       </div>
     </div>
     <div ng-show="word">
-        {{word}}
     </div>
     <div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
     <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
@@ -43,7 +42,7 @@
 
   <div ng-show="toggleInput" class="list">
     <p class="item item-text-wrap">Your turn to make up a definition! Remember to make it sound convincing, you get points if other players think yours is the real definition.</p>
-    <p class="item"> The Word is: <strong>Apocrpyha</strong></p>
+    <p class="item"> The Word is: <strong>{{word}}</strong></p>
     <label class="item item-input">
     <textarea id="definition" rows=10 name="message" ng-model="room_ctrl.definition" placeholder="Type your definition here"></textarea>
     </label>
