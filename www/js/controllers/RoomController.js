@@ -25,7 +25,7 @@
     };
 
     $scope.getWord = function() {
-      WordService.getWord().then(function(word) {
+      return WordService.getWord().then(function(word) {
         $scope.data = word.data
       })
     }
@@ -66,12 +66,12 @@
     localStorageService.set('player_data.currentRole', "player");
 
     SocketService.on('start_game', function(msg) {
-      $scope.getWord().then(function(data) {
-		  console.log(data.data);
+      console.log("hello");
+      WordService.getWord().then(function(data) {
+        console.log(data.data);
         $scope.data = data.data;
       })
       $scope.currentRole = localStorageService.get('player_data.currentRole');
-      //   localStorageService.set('player_data.currentRole', "picker");
     });
 
     SocketService.on('first_player', function(msg) {
