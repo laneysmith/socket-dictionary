@@ -13,8 +13,8 @@ io.on('connection', function(socket) {
     }
   });
 
-  socket.on('select_word', function(word, room_name) {
-	  io.in(room_name).emit('selected_word', word)
+  socket.on('select_word', function(data, room_name) {
+	  io.in(room_name).emit('selected_word', data)
   });
 
   socket.on('leave:room', function(msg) {

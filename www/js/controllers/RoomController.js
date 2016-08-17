@@ -25,7 +25,7 @@
       return 'current-user';
     };
     $scope.selectWord = function() {
-      SocketService.emit('select_word', $scope.data.word, me.current_room);
+      SocketService.emit('select_word', $scope.data, me.current_room);
     };
 
     $scope.getWord = function() {
@@ -51,7 +51,7 @@
     //   SocketService.emit('send:message', msg);
     // };
 
-    $scope.sendDefinition = function () {
+    $scope.sendDefinition = function() {
       $scope.toggleInput = false;
 
       var def = {
@@ -81,9 +81,10 @@
     localStorageService.set('player_data.score', 0);
     localStorageService.set('player_data.currentRole', "player");
 
-    SocketService.on('selected_word', function(word) {
+    SocketService.on('selected_word', function(data) {
+      me.definitions.push(data)
       $scope.toggleInput = true;
-      $scope.word = word;
+      $scope.word = data.word;
     })
 
     SocketService.on('start_game', function(msg) {
@@ -103,11 +104,8 @@
     });
 
     SocketService.on('definition', function(def) {
-      // console.log(def);
       me.definitions.push(def);
-      console.log(me.definitions.length);
     });
-
 
   }
 

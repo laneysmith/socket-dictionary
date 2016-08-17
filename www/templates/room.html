@@ -40,6 +40,10 @@
     </div>
   </div>
 
+<ion-list>
+    <ion-radio ng-repeat="definition in definitions" ng-model="choice" ng-value="">{{definition.definition}}</ion-radio>
+</ion-list>
+
   <div ng-show="toggleInput" class="list">
     <p class="item item-text-wrap">Your turn to make up a definition! Remember to make it sound convincing, you get points if other players think yours is the real definition.</p>
     <p class="item"> The Word is: <strong>{{word}}</strong></p>
