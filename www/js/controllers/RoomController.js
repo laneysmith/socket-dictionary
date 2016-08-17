@@ -8,7 +8,7 @@
 
     me.messages = [];
     me.definitions = [];
-    console.log(definitions.length);
+    console.log(me.definitions.length);
 
 
     $scope.humanize = function(timestamp) {
@@ -105,7 +105,8 @@
     });
 
     SocketService.on('definition', function(def) {
-      me.definition.push(def);
+      console.log(def);
+      me.definitions.push(def);
     });
 
 

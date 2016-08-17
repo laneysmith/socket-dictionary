@@ -28,8 +28,8 @@ io.on('connection', function(socket) {
   });
 
   socket.on('send:definition', function(def) {
-    socket.in(def.room).emit('definition', def);
-    }
+    console.log(def);
+    io.in(def.room).emit('definition', def);
   });
 
 });
