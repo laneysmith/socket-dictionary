@@ -7,8 +7,9 @@ io.on('connection', function(socket) {
     socket.join(room_name);
     if (io.sockets.adapter.rooms[room_name].length === 1) {
       io.in(socket.id).emit('first_player', "first_player");
-    } else if (io.sockets.adapter.rooms[room_name].length === 4) {
-      socket.in(room_name).emit('start_game', "starting game....");
+    }
+    if (io.sockets.adapter.rooms[room_name].length === 4) {
+      io.in(room_name).emit('start_game', "starting game....");
     }
   });
 
