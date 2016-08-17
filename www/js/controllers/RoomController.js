@@ -8,11 +8,6 @@
 
     me.messages = [];
     me.definitions = [];
-<<<<<<< HEAD
-=======
-
->>>>>>> 038b4eb46e666a5e8aaf9014f85ea0e3781ff599
-
 
     $scope.humanize = function(timestamp) {
       return moment(timestamp).fromNow();
