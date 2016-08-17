@@ -1,8 +1,8 @@
 (function() {
   angular.module('starter')
-    .controller('RoomController', ['$scope', '$state', 'localStorageService', 'SocketService', 'moment', '$ionicScrollDelegate', RoomController]);
+    .controller('RoomController', ['$scope', '$state', 'localStorageService', 'SocketService', 'moment', '$ionicScrollDelegate', 'WordService', RoomController]);
 
-  function RoomController($scope, $state, localStorageService, SocketService, moment, $ionicScrollDelegate) {
+  function RoomController($scope, $state, localStorageService, SocketService, moment, $ionicScrollDelegate, WordService) {
 
     var me = this;
 
@@ -24,6 +24,11 @@
       return 'current-user';
     };
 
+    $scope.getWord = function() {
+      WordService.getWord().then(function(word) {
+        $scope.data = word.data
+      })
+    }
 
     $scope.sendTextMessage = function() {
 
@@ -60,9 +65,16 @@
     localStorageService.set('player_data.score', 0);
     localStorageService.set('player_data.currentRole', "player");
 
+    SocketService.on('start_game', function(msg) {
+      $scope.getWord().then(function(data) {
+		  console.log(data.data);
+        $scope.data = data.data;
+      })
+      $scope.currentRole = localStorageService.get('player_data.currentRole');
+      //   localStorageService.set('player_data.currentRole', "picker");
+    });
 
     SocketService.on('first_player', function(msg) {
-      console.log("firing set localStorageService");
       localStorageService.set('player_data.currentRole', "picker");
     });
 

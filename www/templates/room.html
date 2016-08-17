@@ -1,40 +1,53 @@
 <ion-view title="{{ room_ctrl.current_room }}" ng-controller="RoomController as room_ctrl">
- 	<header class="bar bar-header bar-positive">
- 		<h1 class="title">{{ room_ctrl.current_room }}</h1>
- 		<button class="button button-assertive" ng-click="leaveRoom()">Leave</button>
- 	</header>
-
+  <header class="bar bar-header bar-positive">
+    <h1 class="title">{{ room_ctrl.current_room }}</h1>
+    <button class="button button-assertive" ng-click="leaveRoom()">Leave</button>
+  </header>
 
   <ion-content class="has-header padding">
-	
-	<div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
-	    <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
-	    	<div class="msg">
-		    	<div class="details padding">
-					<p>
-						<div class="user">{{ msg.user }}</div>
-						<div class="message">{{ msg.text }}</div>
-					</p>
-					<small>{{ humanize(msg.time) }}</small>
-		    	</div>
-	    	</div>
-	    </li>
-	</div>
 
-	<div class="card" ng-if="!room_ctrl.messages.length">
-	  <div class="item item-text-wrap">
-	    No messages yet.
-	  </div>
-	</div>
+    <div class="card">
+      <div class="item item-divider">
+        {{data.word}}
+      </div>
+      <div class="item item-text-wrap">
+        {{data.meaning}}
+      </div>
+      <div class="button-bar">
+        <a class="button button-assertive" ng-click="getWord()">Reject</a>
+        <a class="button button-balanced" ng-click="selectWord()">Select</a>
+      </div>
+    </div>
 
-  </ion-content>
+    <button ng-click="getWord()" ng-show="currentRole=='picker'" class="button button-royal" type="button" name="button">Get Word</button>
 
+    <div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
+    <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
+      <div class="msg">
+        <div class="details padding">
+          <p>
+            <div class="user">{{ msg.user }}</div>
+            <div class="message">{{ msg.text }}</div>
+          </p>
+          <small>{{ humanize(msg.time) }}</small>
+        </div>
+      </div>
+    </li>
+  </div>
+
+  <div class="card" ng-if="!room_ctrl.messages.length">
+    <div class="item item-text-wrap">
+      Waiting for players...
+    </div>
+  </div>
+
+</ion-content>
 
 <footer class="bar bar-footer bar-positive item-input-inset has-content">
-    <label class="item-input-wrapper">
-      <input type="text" id="message" name="message" ng-model="room_ctrl.message" placeholder="Type message">
-    </label>
-   	<a class="button button-icon icon ion-android-send" ng-click="sendTextMessage()"></a>
+  <label class="item-input-wrapper">
+    <input disabled type="text" id="message" name="message" ng-model="room_ctrl.message" placeholder="Type your definition here">
+  </label>
+  <a class="button button-icon icon ion-android-send" ng-click="sendTextMessage()"></a>
 </footer>
 
 </ion-view>
