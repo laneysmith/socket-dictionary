@@ -41,13 +41,24 @@
     </div>
   </div>
 
-</ion-content>
+  <div ng-show="toggleInput" class="list">
+    <p class="item item-text-wrap">Your turn to make up a definition! Remember to make it sound convincing, you get points if other players think yours is the real definition.</p>
+    <p class="item"> The Word is: <strong>Apocrpyha</strong></p>
+    <label class="item item-input">
+    <textarea id="message" rows=10 name="message" ng-model="room_ctrl.message" placeholder="Type your definition here"></textarea>
+    </label>
+    <a class="button button-block button-positive" ng-click="sendTextMessage()">Submit Definition</a>
+  </div>
 
-<footer ng-show="toggleInput" class="bar bar-footer bar-positive item-input-inset has-content">
+</ion-content>
+<!-- ng-show="toggleInput" -->
+<!-- <footer  class="bar bar-footer bar-positive item-input-inset has-content">
   <label class="item-input-wrapper">
-    <input type="text" id="message" name="message" ng-model="room_ctrl.message" placeholder="Type your definition here">
+    <div class="card">
+
+    </div>
   </label>
-  <a class="button button-icon icon ion-android-send" ng-click="sendTextMessage()"></a>
-</footer>
+
+</footer> -->
 
 </ion-view>
