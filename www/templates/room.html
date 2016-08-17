@@ -18,7 +18,9 @@
         <a class="button button-balanced" ng-click="selectWord()">Select</a>
       </div>
     </div>
-
+    <div ng-show="select">
+        {{select}}
+    </div>
     <div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
     <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
       <div class="msg">

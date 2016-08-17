@@ -23,6 +23,10 @@
       }
       return 'current-user';
     };
+    $scope.selectWord = function() {
+		$scope.select = $scope.data.word;
+    //   WordService.selectWord($scope.data);
+    };
 
     $scope.getWord = function() {
       return WordService.getWord().then(function(word) {
@@ -66,9 +70,7 @@
     localStorageService.set('player_data.currentRole', "player");
 
     SocketService.on('start_game', function(msg) {
-      console.log("hello");
       WordService.getWord().then(function(data) {
-        console.log(data.data);
         $scope.data = data.data;
       })
       $scope.currentRole = localStorageService.get('player_data.currentRole');
