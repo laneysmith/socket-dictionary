@@ -43,9 +43,9 @@
 
 </ion-content>
 
-<footer class="bar bar-footer bar-positive item-input-inset has-content">
+<footer ng-show="toggleInput" class="bar bar-footer bar-positive item-input-inset has-content">
   <label class="item-input-wrapper">
-    <input disabled type="text" id="message" name="message" ng-model="room_ctrl.message" placeholder="Type your definition here">
+    <input type="text" id="message" name="message" ng-model="room_ctrl.message" placeholder="Type your definition here">
   </label>
   <a class="button button-icon icon ion-android-send" ng-click="sendTextMessage()"></a>
 </footer>

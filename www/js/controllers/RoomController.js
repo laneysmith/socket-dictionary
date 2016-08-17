@@ -3,7 +3,7 @@
     .controller('RoomController', ['$scope', '$state', 'localStorageService', 'SocketService', 'moment', '$ionicScrollDelegate', 'WordService', RoomController]);
 
   function RoomController($scope, $state, localStorageService, SocketService, moment, $ionicScrollDelegate, WordService) {
-
+	 
     var me = this;
 
     me.messages = [];
@@ -34,7 +34,7 @@
     }
 
     $scope.sendTextMessage = function() {
-
+      $scope.toggleInput = false;
       var msg = {
         'room': me.current_room,
         'user': current_user,
@@ -68,9 +68,10 @@
     localStorageService.set('player_data.score', 0);
     localStorageService.set('player_data.currentRole', "player");
 
-	SocketService.on('selected_word', function(word) {
-		$scope.word = word;
-	})
+    SocketService.on('selected_word', function(word) {
+      $scope.toggleInput = true;
+      $scope.word = word;
+    })
 
     SocketService.on('start_game', function(msg) {
       WordService.getWord().then(function(data) {
