@@ -16,7 +16,7 @@ io.on('connection', function(socket) {
   socket.on('select_word', function(word, room_name) {
 	  io.in(room_name).emit('selected_word', word)
   });
-  
+
   socket.on('leave:room', function(msg) {
     msg.text = msg.user + ' has left the room';
     socket.leave(msg.room);
@@ -25,6 +25,11 @@ io.on('connection', function(socket) {
 
   socket.on('send:message', function(msg) {
     socket.in(msg.room).emit('message', msg);
+  });
+
+  socket.on('send:definition', function(def) {
+    socket.in(def.room).emit('definition', def);
+    }
   });
 
 });
