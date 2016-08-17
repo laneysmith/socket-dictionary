@@ -8,6 +8,10 @@
 
     me.messages = [];
     me.definitions = [];
+<<<<<<< HEAD
+=======
+
+>>>>>>> 038b4eb46e666a5e8aaf9014f85ea0e3781ff599
 
 
     $scope.humanize = function(timestamp) {
@@ -104,10 +108,9 @@
     });
 
     SocketService.on('definition', function(def) {
-      console.log(def);
+      // console.log(def);
       me.definitions.push(def);
       console.log(me.definitions.length);
-
     });
 
 
