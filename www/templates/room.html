@@ -6,7 +6,7 @@
 
   <ion-content class="has-header padding">
 
-    <div class="card">
+    <div class="card" ng-show="currentRole=='picker'">
       <div class="item item-divider">
         {{data.word}}
       </div>
@@ -18,8 +18,6 @@
         <a class="button button-balanced" ng-click="selectWord()">Select</a>
       </div>
     </div>
-
-    <button ng-click="getWord()" ng-show="currentRole=='picker'" class="button button-royal" type="button" name="button">Get Word</button>
 
     <div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
     <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
