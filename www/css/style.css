@@ -27,3 +27,7 @@ ion-content {
 .not-current-user .details {
     background-color: #DCDCDC;
 }
+
+#message {
+  width:100%;
+}
