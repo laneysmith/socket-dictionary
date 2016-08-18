@@ -9,6 +9,7 @@
     me.messages = [];
     me.definitions = [];
     me.scores = [];
+    $scope.score = 0;
     $scope.view = {
       choice: 'test'
     }
@@ -75,13 +76,8 @@
 
 
     }
-    $scope.playerChoice = function(choice) {
-      SocketService.emit('updateScore', choice, me.current_room)
-      $scope.choiceMade = true;
-    }
 
     $scope.leaveRoom = function() {
-
       var msg = {
         'user': current_user,
         'room': me.current_room,
@@ -123,50 +119,25 @@
       $ionicScrollDelegate.scrollBottom();
     });
 
-    SocketService.on('receive:score', function(score) {
-      me.results.push(score);
+    SocketService.on('room_full', function(msg) {
+      alert(msg);
+      $state.go('rooms');
     })
 
     SocketService.on('definition', function(def) {
       me.definitions.push(def);
     });
 
-    SocketService.on('room_full', function(msg) {
-      alert(msg);
-      $state.go('rooms');
+    // ******************************************************
+    $scope.playerChoice = function(choice) {
+      SocketService.emit('sendChoice', choice, me.current_room)
+      $scope.choiceMade = true;
+    }
+
+    SocketService.on(current_user, function(msg) {
+      $scope.score++;
+      localStorageService.set('player_data.score', $scope.score);
     })
-
-    SocketService.on('updateScore', function(choice) {
-      me.scores.push(choice)
-      if (me.scores.length === 3) {
-        var score = localStorageService.get('player_data.score')
-        me.scores.forEach(function(name) {
-          if (current_user == name) {
-            score++
-          }
-          if (localStorageService.get('player_data.currentRole') == 'picker') {
-            if (name == null) {
-              score++
-            }
-          }
-        })
-        localStorageService.set('player_data.score', score)
-      }
-    })
-
-    $scope.sendScore = function() {
-      var playerScore = localStorageService.get('player_data.score');
-      var score = {
-        'room': me.current_room,
-        'user': current_user,
-        'score': playerScore
-      };
-
-      me.results.push(score);
-      SocketService.emit('send:score', score);
-    };
-
-
   }
 
 })();
