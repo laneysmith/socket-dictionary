@@ -8,6 +8,12 @@
 
     me.messages = [];
     me.definitions = [];
+    me.scores = [];
+    $scope.view = {
+      choice: 'test'
+    }
+
+    // $scope.view.choice = 'test'
 
 	$scope.selected = true;
     $scope.humanize = function(timestamp) {
@@ -66,6 +72,10 @@
 
 
     }
+    $scope.playerChoice = function (choice) {
+
+      SocketService.emit('updateScore', choice, me.current_room)
+    }
 
     $scope.leaveRoom = function() {
 
@@ -75,7 +85,7 @@
         'time': moment()
       };
 
-      SocketService.emit('leave:room', msg);
+    SocketService.emit('leave:room', msg);
       $state.go('rooms');
 
     };
@@ -111,9 +121,12 @@
 
     SocketService.on('definition', function(def) {
       me.definitions.push(def);
-      console.log(me.definitions.length);
     });
 
+    SocketService.on('updateChoice', function(choice){
+      me.scores.push(choice)
+      console.log('scores', me.scores.length);
+    })
   }
 
 })();
