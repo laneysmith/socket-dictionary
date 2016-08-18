@@ -125,14 +125,13 @@
 
     SocketService.on('receive:score', function(score) {
       me.results.push(score);
-      console.log(me.results);
     })
 
     SocketService.on('definition', function(def) {
       me.definitions.push(def);
     });
 
-    SocketService.on('room_full', function (msg) {
+    SocketService.on('room_full', function(msg) {
       alert(msg);
       $state.go('rooms');
     })
@@ -145,23 +144,22 @@
           if (current_user == name) {
             score++
           }
-         if (localStorageService.get('player_data.currentRole') == 'picker') {
+          if (localStorageService.get('player_data.currentRole') == 'picker') {
             if (name == null) {
               score++
             }
           }
         })
         localStorageService.set('player_data.score', score)
-        $scope.sendScore();
       }
     })
 
     $scope.sendScore = function() {
-
+      var playerScore = localStorageService.get('player_data.score');
       var score = {
         'room': me.current_room,
         'user': current_user,
-        'score': localStorageService.get('player_data.score')
+        'score': playerScore
       };
 
       me.results.push(score);
