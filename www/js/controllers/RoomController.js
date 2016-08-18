@@ -13,6 +13,7 @@
       choice: 'test'
     }
     $scope.waiting = true;
+    me.results = [];
 
     // $scope.view.choice = 'test'
 
@@ -122,6 +123,11 @@
       $ionicScrollDelegate.scrollBottom();
     });
 
+    SocketService.on('receive:score', function(score) {
+      me.results.push(score);
+      console.log(me.results);
+    })
+
     SocketService.on('definition', function(def) {
       me.definitions.push(def);
     });
@@ -146,8 +152,23 @@
           }
         })
         localStorageService.set('player_data.score', score)
+        $scope.sendScore();
       }
     })
+
+    $scope.sendScore = function() {
+
+      var score = {
+        'room': me.current_room,
+        'user': current_user,
+        'score': localStorageService.get('player_data.score')
+      };
+
+      me.results.push(score);
+      SocketService.emit('send:score', score);
+    };
+
+
   }
 
 })();

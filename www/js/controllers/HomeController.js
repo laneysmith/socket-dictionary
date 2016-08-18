@@ -27,7 +27,7 @@
 
       SocketService.emit('join:room', room);
 
-      $state.go('room');
+      $state.go('room.mainGame');
     };
 
   }
