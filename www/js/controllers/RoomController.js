@@ -127,6 +127,11 @@
       me.definitions.push(def);
     });
 
+    SocketService.on('room_full', function (msg) {
+      alert(msg);
+      $state.go('rooms');
+    })
+
     SocketService.on('updateScore', function(choice) {
       console.log("CHOICE:", choice);
       me.scores.push(choice)
