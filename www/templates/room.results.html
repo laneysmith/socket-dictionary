@@ -1,5 +1,10 @@
-<ion-view ng-controller="RoomController as room_ctrl">
+<ion-view ng-controller="ResultsController as room_ctrl">
 
-  <ion-content><h1>Hello</h1></ion-content>
+  <ion-content class="has-header padding">
+    <h1>Thanks for playing one round... more to come...</h1>
+    <p>{{name}}'s score is:
+      {{score}}</p>
+      <button class="button button-block button-positive" type="button" ng-click="nextRound()" name="button">Next Round!</button>
+  </ion-content>
 
 </ion-view>
