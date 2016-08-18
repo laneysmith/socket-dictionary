@@ -34,18 +34,19 @@
   </div>
 
   <div ng-show="selected" class="card" ng-if="!room_ctrl.messages.length">
-    <div class="item item-text-wrap">
+    <div ng-show="waiting" class="item item-text-wrap">
       Waiting for players...
     </div>
   </div>
 
   <div class="list" ng-show="room_ctrl.definitions.length === 4">
-    <p class="title item item-text-wrap">I think {{word}} means:</p>
+    <p ng-if="currentRole !=='picker'" class="title item item-text-wrap">I think {{word}} means:</p>
+    <p ng-if="currentRole =='picker'">Here are the player definitions:</p>
     <ion-list>
-      <ion-radio ng-repeat="definition in room_ctrl.definitions" ng-model="view.choice" ng-value="definition.user" class="item item-text-wrap">{{definition.definition}} Def: {{definition}}</ion-radio>
+      <ion-radio ng-repeat="definition in room_ctrl.definitions" ng-model="view.choice" ng-value="definition.user" class="item item-text-wrap">{{definition.definition}}</ion-radio>
     </ion-list>
-    <a class="button button-block button-positive" ng-click="playerChoice(view.choice)">Submit</a>
-    {{view.choice}}
+    <a ng-if="currentRole !=='picker'" ng-hide="choiceMade" class="button button-block button-positive" ng-click="playerChoice(view.choice)">Submit</a>
+  
   </div>
 
   <div ng-if="toggleInput == true && currentRole !=='picker'" class="list">
