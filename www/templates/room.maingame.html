@@ -1,0 +1,63 @@
+<ion-view>
+
+<ion-content class="has-header padding" ng-controller="RoomController as room_ctrl">
+
+  <div class="card" ng-show="currentRole=='picker' && selected == true">
+    <div class="item item-divider">
+      {{data.word}}
+    </div>
+    <div class="item item-text-wrap">
+      {{data.meaning}}
+    </div>
+    <div class="button-bar">
+      <a class="button button-assertive" ng-click="getWord()">Reject</a>
+      <a class="button button-balanced" ng-click="selectWord()">Select</a>
+    </div>
+  </div>
+  <div ng-show="word"></div>
+  <div class="list" id="messages" ng-if="room_ctrl.messages.length > 0">
+  <li class="item item-text-wrap no-border {{ isNotCurrentUser(msg.user) }}" ng-repeat="msg in room_ctrl.messages">
+    <div class="msg">
+      <div class="details padding">
+        <p>
+          <div class="user">{{ msg.user }}</div>
+          <div class="message">{{ msg.text }}</div>
+        </p>
+        <small>{{ humanize(msg.time) }}</small>
+      </div>
+    </div>
+  </li>
+</div>
+
+<div ng-show="selected" class="card" ng-if="!room_ctrl.messages.length">
+  <div ng-show="waiting" class="item item-text-wrap">
+    Waiting for players...
+  </div>
+</div>
+
+<div class="list" ng-show="room_ctrl.definitions.length === 4">
+  <p ng-if="currentRole !=='picker'" class="title item item-text-wrap">I think {{word}} means:</p>
+  <p ng-if="currentRole =='picker'">Here are the player definitions:</p>
+  <ion-list>
+    <ion-radio ng-if="user != definition.user" ng-repeat="definition in room_ctrl.definitions" ng-model="view.choice" ng-value="definition.user" class="item item-text-wrap">{{definition.definition}}</ion-radio>
+  </ion-list>
+
+  <a ng-if="currentRole !=='picker'" ng-hide="choiceMade" class="button button-block button-positive" ng-click="playerChoice(view.choice)">Submit</a>
+
+</div>
+
+<div ng-if="toggleInput == true && currentRole !=='picker'" class="list">
+  <p class="item item-text-wrap">Your turn to make up a definition! Remember to make it sound convincing, you get points if other players think yours is the real definition.</p>
+  <p class="item">
+    The Word is:
+    <strong>{{word}}</strong>
+  </p>
+  <label class="item item-input">
+    <textarea id="definition" rows=10 name="message" ng-model="room_ctrl.definition" placeholder="Type your definition here"></textarea>
+  </label>
+  <a class="button button-block button-positive" ng-click="sendDefinition()">Submit Definition</a>
+</div>
+
+</ion-content>
+
+</ion-view>
