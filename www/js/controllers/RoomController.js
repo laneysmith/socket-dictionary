@@ -74,7 +74,6 @@
 
     }
     $scope.playerChoice = function(choice) {
-      console.log(choice);
       SocketService.emit('updateScore', choice, me.current_room)
       $scope.choiceMade = true;
     }
@@ -96,7 +95,6 @@
     localStorageService.set('player_data.currentRole', "player");
 
     SocketService.on('selected_word', function(data) {
-      console.log("ping", data);
       var def = {
         definition: data.meaning,
         word: data.word
@@ -133,9 +131,21 @@
     })
 
     SocketService.on('updateScore', function(choice) {
-      console.log("CHOICE:", choice);
       me.scores.push(choice)
-      console.log('scores', me.scores);
+      if (me.scores.length === 3) {
+        var score = localStorageService.get('player_data.score')
+        me.scores.forEach(function(name) {
+          if (current_user == name) {
+            score++
+          }
+         if (localStorageService.get('player_data.currentRole') == 'picker') {
+            if (name == null) {
+              score++
+            }
+          }
+        })
+        localStorageService.set('player_data.score', score)
+      }
     })
   }
 
