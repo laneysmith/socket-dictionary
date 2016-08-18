@@ -130,13 +130,23 @@
 
     // ******************************************************
     $scope.playerChoice = function(choice) {
+      if (choice == null) {
+        choice = 'picker'
+      }
       SocketService.emit('sendChoice', choice, me.current_room)
       $scope.choiceMade = true;
     }
 
     SocketService.on(current_user, function(msg) {
       $scope.score++;
-      localStorageService.set('player_data.score', $scope.score);
+      localStorageService.set('player_data.score', $scope.score)
+    })
+
+    SocketService.on('picker', function(msg) {
+      if ('picker' == localStorageService.get('player_data.currentRole')) {
+        $scope.score++;
+        localStorageService.set('player_data.score', $scope.score)
+      }
     })
   }
 
