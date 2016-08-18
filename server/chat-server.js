@@ -1,10 +1,14 @@
 var io = require('socket.io')(3000);
 
+
+
 io.on('connection', function(socket) {
 
   socket.on('join:room', function(data) {
-    var room_name = data.room_name;
     socket.join(room_name);
+    console.log('allData', data)
+    console.log('allGames', allGames)
+    console.log('data', io.sockets.adapter.rooms[room_name])
     if (io.sockets.adapter.rooms[room_name].length === 1) {
       io.in(socket.id).emit('first_player', "first_player");
     }
@@ -32,4 +36,8 @@ io.on('connection', function(socket) {
     io.in(def.room).emit('definition', def);
   });
 
+	socket.on('updateChoice', function(choice, room){
+		console.log('choice', choice)
+		io.in(room).emit('updateChoice', choice)
+	})
 });
