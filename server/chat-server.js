@@ -33,6 +33,7 @@ io.on('connection', function(socket) {
   });
 
   socket.on('updateScore', function(choice, room) {
+    console.log(choice);
     io.in(room).emit('updateScore', choice)
   })
 });

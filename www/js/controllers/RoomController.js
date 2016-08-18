@@ -12,6 +12,7 @@
     $scope.view = {
       choice: 'test'
     }
+    $scope.waiting = true;
 
     // $scope.view.choice = 'test'
 
@@ -73,7 +74,7 @@
 
     }
     $scope.playerChoice = function(choice) {
-
+      console.log(choice);
       SocketService.emit('updateScore', choice, me.current_room)
     }
 
@@ -108,6 +109,7 @@
       WordService.getWord().then(function(data) {
         $scope.data = data.data;
       })
+      $scope.waiting = false;
       $scope.currentRole = localStorageService.get('player_data.currentRole');
     });
 
@@ -124,9 +126,10 @@
       me.definitions.push(def);
     });
 
-    SocketService.on('updateChoice', function(choice) {
+    SocketService.on('updateScore', function(choice) {
+      console.log("CHOICE:", choice);
       me.scores.push(choice)
-      console.log('scores', me.scores.length);
+      console.log('scores', me.scores);
     })
   }
 
