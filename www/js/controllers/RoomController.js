@@ -15,7 +15,7 @@
 
     // $scope.view.choice = 'test'
 
-	$scope.selected = true;
+    $scope.selected = true;
     $scope.humanize = function(timestamp) {
       return moment(timestamp).fromNow();
     };
@@ -33,7 +33,7 @@
     };
     $scope.selectWord = function() {
       SocketService.emit('select_word', $scope.data, me.current_room);
-	  $scope.selected = false;
+      $scope.selected = false;
     };
 
     $scope.getWord = function() {
@@ -72,7 +72,7 @@
 
 
     }
-    $scope.playerChoice = function (choice) {
+    $scope.playerChoice = function(choice) {
 
       SocketService.emit('updateScore', choice, me.current_room)
     }
@@ -85,7 +85,7 @@
         'time': moment()
       };
 
-    SocketService.emit('leave:room', msg);
+      SocketService.emit('leave:room', msg);
       $state.go('rooms');
 
     };
@@ -94,6 +94,7 @@
     localStorageService.set('player_data.currentRole', "player");
 
     SocketService.on('selected_word', function(data) {
+      console.log("ping", data);
       var def = {
         definition: data.meaning,
         word: data.word
@@ -123,7 +124,7 @@
       me.definitions.push(def);
     });
 
-    SocketService.on('updateChoice', function(choice){
+    SocketService.on('updateChoice', function(choice) {
       me.scores.push(choice)
       console.log('scores', me.scores.length);
     })

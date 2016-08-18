@@ -6,8 +6,11 @@
 	function SocketService(socketFactory){
 		return socketFactory({
 
-			ioSocket: io.connect('https://q3-socket-server.herokuapp.com')
+			ioSocket: io.connect('http://q3-socket-server.herokuapp.com')
 
 		});
 	}
 })();
+
+
+// https://q3-socket-server.herokuapp.com
