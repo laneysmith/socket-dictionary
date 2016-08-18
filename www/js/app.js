@@ -27,7 +27,7 @@ angular.module('starter', ['ionic', 'LocalStorageModule', 'btford.socket-io', 'a
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-  .state('login', {
+    .state('login', {
     url: '/login',
     templateUrl: 'templates/login.html'
   })
@@ -47,6 +47,15 @@ angular.module('starter', ['ionic', 'LocalStorageModule', 'btford.socket-io', 'a
     views: {
       "room-mainGame": {
         templateUrl: 'templates/room.maingame.html'
+      }
+    }
+  })
+
+  .state('room.resuts', {
+    url: '/results',
+    views: {
+      "room-results": {
+        templateUrl: 'templates/room.results.html'
       }
     }
   });

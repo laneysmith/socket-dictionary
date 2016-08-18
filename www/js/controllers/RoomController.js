@@ -148,6 +148,11 @@
         localStorageService.set('player_data.score', $scope.score)
       }
     })
+
+    SocketService.on("roundFinished", function(msg) {
+      $state.go('room.results')
+    })
+
   }
 
 })();
