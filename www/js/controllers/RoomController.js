@@ -24,6 +24,7 @@
     me.current_room = localStorageService.get('room');
 
     var current_user = localStorageService.get('username');
+    $scope.user = current_user
 
     $scope.isNotCurrentUser = function(user) {
 
