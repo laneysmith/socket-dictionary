@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'LocalStorageModule', 'btford.socket-io', 'a
     }
   })
 
-  .state('room.resuts', {
+  .state('room.results', {
     url: '/results',
     views: {
       "room-results": {

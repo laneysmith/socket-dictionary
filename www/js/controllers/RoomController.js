@@ -150,6 +150,7 @@
     })
 
     SocketService.on("roundFinished", function(msg) {
+        console.log("hit on roundFinished");
       $state.go('room.results')
     })
 
