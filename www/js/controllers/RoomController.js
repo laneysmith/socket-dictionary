@@ -76,6 +76,7 @@
     $scope.playerChoice = function(choice) {
       console.log(choice);
       SocketService.emit('updateScore', choice, me.current_room)
+      $scope.choiceMade = true;
     }
 
     $scope.leaveRoom = function() {

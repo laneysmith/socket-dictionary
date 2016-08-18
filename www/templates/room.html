@@ -45,7 +45,8 @@
     <ion-list>
       <ion-radio ng-repeat="definition in room_ctrl.definitions" ng-model="view.choice" ng-value="definition.user" class="item item-text-wrap">{{definition.definition}}</ion-radio>
     </ion-list>
-    <a ng-if="currentRole !=='picker'" class="button button-block button-positive" ng-click="playerChoice(view.choice)">Submit</a>
+    <a ng-if="currentRole !=='picker'" ng-hide="choiceMade" class="button button-block button-positive" ng-click="playerChoice(view.choice)">Submit</a>
+  
   </div>
 
   <div ng-if="toggleInput == true && currentRole !=='picker'" class="list">
