@@ -31,3 +31,8 @@ ion-content {
 #message {
   width:100%;
 }
+
+.splashPic {
+  height:30vh;
+  width:45vw;
+}

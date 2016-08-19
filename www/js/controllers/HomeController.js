@@ -12,6 +12,9 @@
 
     $scope.login = function(username) {
       localStorageService.set('username', username);
+      if (localStorageService.get('username').length < 1) {
+        $state.go('login')
+      }
       $state.go('rooms');
     };
 

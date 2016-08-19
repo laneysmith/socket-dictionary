@@ -1,18 +1,30 @@
 <ion-view title="Login" ng-controller="HomeController as home_ctrl">
  	<header class="bar bar-header bar-positive">
- 		<h1 class="title">Login</h1>
+ 		<h1 class="title">socket dictionary</h1>
  	</header>
- 	
+
   <ion-content class="has-header padding">
-	
+
+  <div class="padding">
+    <img class="splashPic" src="http://f.tqn.com/y/webclipart/1/S/M/C/5/dictionary-day.png" alt="">
+  </div>
+
+
+<div class="padding">
+    <p>This is your opportunity to show off your word knowledge. Choose a username to start playing.</p>
+
+  </div>
+
 	<div class="list">
+    <form action="">
 		<label class="item item-input">
-			<input type="text" ng-model="home_ctrl.username" placeholder="User name">
+			<input type="text" ng-model="home_ctrl.username" placeholder="User name" required>
 		</label>
 
 		<div class="padding">
 			<button class="button button-positive button-block" ng-click="login(home_ctrl.username)">Enter</button>
 		</div>
+  </form>
 	</div>
 
   </ion-content>
