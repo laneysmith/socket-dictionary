@@ -8,7 +8,7 @@
 Game room options:
 ![Game rooms screenshot](/screenshots/socket-dictionary-screenshot1.png "Game rooms")
 Randomly generated word:
-![Random word screenshot](/screenshots/socket-dictionary-screenshot1.png "Random word")
+![Random word screenshot](/screenshots/socket-dictionary-screenshot2.png "Random word")
 
 ### Game rules:
 Players join a room, after 4 players have joined the game is started. The first person to enter the room is assigned the role of "picker" & given a randomly generated word. The picker can choose to accept the word, or generate a new one. The goal is to choose a word difficult enough that they think the other players won't know the true definition.
