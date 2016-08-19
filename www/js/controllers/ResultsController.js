@@ -8,7 +8,7 @@
 
     $scope.nextRound = function() {
         // $ionicHistory.goBack(-1);
-        $state.go('rooms');
+        $state.go('login');
     }
   }
 
