@@ -1,10 +1,12 @@
 <ion-view ng-controller="ResultsController as room_ctrl">
 
   <ion-content class="has-header padding">
-    <h1>Thanks for playing one round... more to come...</h1>
-    <p>{{name}}'s score is:
+    <h1 class="padding">Thanks for playing one round... more to come...</h1>
+    <br>
+    <p class="padding">{{name}}'s score is:
       {{score}}</p>
-      <button class="button button-block button-positive" type="button" ng-click="nextRound()" name="button">Next Round!</button>
+      <br>
+      <button class="button button-block button-positive padding" type="button" ng-click="nextRound()" name="button">Next Round!</button>
   </ion-content>
 
 </ion-view>

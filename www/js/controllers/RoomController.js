@@ -63,6 +63,11 @@
     //   SocketService.emit('send:message', msg);
     // };
 
+    $scope.random = function(){
+    return 0.5 - Math.random();
+
+    };
+
     $scope.sendDefinition = function() {
       $scope.toggleInput = false;
 
