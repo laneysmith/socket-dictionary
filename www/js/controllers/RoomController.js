@@ -1,11 +1,12 @@
 (function() {
   angular.module('starter')
-    .controller('RoomController', ['$scope', '$state', 'localStorageService', 'SocketService', 'moment', '$ionicScrollDelegate', 'WordService', RoomController]);
+    .controller('RoomController', ['$scope', '$state', 'localStorageService', 'SocketService', 'WordService', RoomController]);
 
-  function RoomController($scope, $state, localStorageService, SocketService, moment, $ionicScrollDelegate, WordService) {
+  function RoomController($scope, $state, localStorageService, SocketService, $ionicScrollDelegate, WordService) {
 
     var me = this;
 
+    me.username = ''
     me.messages = [];
     me.definitions = [];
     me.scores = [];
@@ -18,9 +19,6 @@
     // $scope.view.choice = 'test'
 
     $scope.selected = true;
-    $scope.humanize = function(timestamp) {
-      return moment(timestamp).fromNow();
-    };
 
     me.current_room = localStorageService.get('room');
 
@@ -64,33 +62,26 @@
 
     $scope.sendDefinition = function() {
       $scope.toggleInput = false;
-
       var def = {
         'room': me.current_room,
         'user': current_user,
         'definition': me.definition
       };
-
       SocketService.emit('send:definition', def);
-
-
     }
+
     $scope.playerChoice = function(choice) {
       SocketService.emit('updateScore', choice, me.current_room)
       $scope.choiceMade = true;
     }
 
     $scope.leaveRoom = function() {
-
       var msg = {
         'user': current_user,
-        'room': me.current_room,
-        'time': moment()
+        'room': me.current_room
       };
-
       SocketService.emit('leave:room', msg);
       $state.go('rooms');
-
     };
 
     localStorageService.set('player_data.score', 0);
