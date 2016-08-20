@@ -5,25 +5,26 @@
 	function HomeController($scope, $state, localStorageService, SocketService) {
 
 		var me = this;
-
-		me.current_room = localStorageService.get('room');
-		me.username = '';
-		// ["Pikachu", "Pacman", "Mortal Kombat", "Banana Room"]
+		$scope.username = 'ugh'
 
 		SocketService.on('update:rooms', function(allGames) {
-      console.log(allGames);
-			me.rooms = allGames;
+      $scope.$apply(function() {
+        console.log(allGames);
+        me.rooms = allGames;
+      })
 		})
 
-
 		$scope.login = function(username) {
+			console.log('this should work ', username);
+			$scope.username = 'shit'
 			me.username = username;
+			console.log(me.username);
 			$state.go('rooms');
 		};
 
-		$scope.enterRoom = function(room, username) {
-			me.current_room = room;
-			SocketService.emit('join:room', room, username);
+		$scope.enterRoom = function(room) {
+			console.log(me.username + ' is entering '+ room);
+			SocketService.emit('join:room', room, $scope.username);
 			$state.go('room.mainGame');
 		};
 
